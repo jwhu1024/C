@@ -20,6 +20,26 @@ typedef  signed long       sint31;       /* Signed 32 bit value */
 typedef  signed short      sint15;       /* Signed 16 bit value */
 typedef  signed char       sint7;        /* Signed 8  bit value */
 
+// 不定變數
+#define eprintf(format, args...) fprintf (stderr, format , ##args)
+
+#ifdef DEBUG
+    #define debug_printf(str, ...) do { printf(str, __VA_ARGS__); } while (0)
+#else
+    #define debug_printf(str, ...)
+#endif
+
+// 將傳入的參數變成字串
+#define print_var(var) 		do { printf("%s: %s\n", #var, var); } while (0)
+
+// 將傳入的參數名稱變化
+#define print_three_var(var)	\
+         do {					\
+             print_var(var);	\
+             print_var(var##2);	\
+             print_var(var##3);	\
+         } while (0)
+
 //3、得到指定地址上的一個字節或字
 #define  MEM_B( x )  ( *( (byte *) (x) ) )
 #define  MEM_W( x )  ( *( (word *) (x) ) )
@@ -84,6 +104,10 @@ typedef  signed char       sint7;        /* Signed 8  bit value */
   #define outpdw(port, val) (*((volatile dword *) (port)) = ((dword) (val)))
   
 void main (void)
-{
+{ // print_var
+	
+	print_three_var("LESTER");
+	
+	system("PAUSE");
 	return;
 }
